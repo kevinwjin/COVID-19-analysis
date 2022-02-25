@@ -8,4 +8,4 @@ Collaborative data analysis of the COVID-19 dataset provided and maintained by t
 * `dplyr`
 
 ## Collaborators
-Michael Tsang, Kevin Jin, & Mingyu Su
+Michael Tsang, Kevin Jin, & Mingyu Sun
