@@ -1,6 +1,6 @@
 ---
 title: "Associations between COVID-19 Mortality and Public Health Factors in Texas"
-author: "Michael Tsang, Kevin Jin, & Mingyu Sun "
+author: "Michael Tsang, Kevin Jin, & Mingyu Sun"
 date: "02/25/2022"
 output: pdf_document
 urlcolor: blue
