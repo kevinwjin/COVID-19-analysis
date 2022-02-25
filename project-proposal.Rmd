@@ -1,0 +1,51 @@
+---
+title: "Associations between COVID-19 Mortality and Public Health Factors in Texas"
+author: "Michael Tsang, Kevin Jin, & Mingyu Sun "
+date: "02/25/2022"
+output: pdf_document
+urlcolor: blue
+linkcolor: red
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Dataset Information
+
+Our dataset comes from the COVID-19 Data Repository, maintained by the Johns Hopkins Center for Systems Science and Engineering. The portion we will cover is a subset of the entire dataset and contains information about the number of cases and deaths due to COVID-19 in the different counties of Texas. Variables in the database are listed below. We will also make use of secondary datasets containing public health data about the state of Texas (e.g. age, gender, pre-existing conditions).
+
+* County
+* Month
+* Confirmed cases
+* Deaths
+* Active cases
+* Recovered cases
+* Case fatality ratio (number recorded deaths / number cases)
+* Incident rate (cases per 100,000 persons)
+* Total number who have been tested
+* Testing rate (= total test results per 100,000 persons)
+* Hospitalization rate (= total number hospitalized / number cases)
+
+# Background and Motivation
+
+The COVID-19 pandemic began in China in December 2019. It has resulted in over 420 million cases and 5.91 million deaths around the world, and has devastated the global economy: people cannot travel as usual due to flight restrictions, and many have lost their families and jobs. People’s lives have dramatically changed. Our motivation is to understand the factors that influence COVID cases and deaths that could help us prevent such global crises from happening again. 
+
+Locally, the impact of COVID can be felt throughout all counties in Texas; however, not all areas are affected equally. In addition to investigating which counties have had the most cases, our group will also be looking for correlations between COVID deaths and pre-existing health conditions, as well as public health measures such as mask usage and vaccinations. If time allows, we also wish to build a model to predict future cases and deaths in the state of Texas based on existing data.
+
+# Potentially Interconnected Questions (3-4 per person)
+
+1. Which counties in Texas were most affected by COVID-19 during a certain time period?
+2. Is there a correlation between COVID deaths and pre-existing health conditions (heart conditions, obesity, smoking?
+3. What about sex? Age? Socioeconomic status?
+4. Which county or counties in Texas have the highest number of pre-existing health conditions? How have they fared under the pandemic compared to counties with relatively healthier people?
+5. What kind of people are more likely to catch COVID? Do they have pre-existing disease? Does previous disease make their COVID infection more serious? 
+6. Is the [rollout of vaccinations](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data) correlated with a decrease in cases/hospitalizations/deaths when considering pre-existing health conditions? What about mask usage?
+7. “[Excess deaths](https://github.com/govex/COVID-19/tree/master/data_tables/vaccine_data)” refers to a phenomenon when more deaths, regardless of cause, are observed than would normally be expected during a period of time. It is commonly observed during major events such as war, pandemics, and natural disasters. Does Texas have more or fewer excess deaths compared to the rest of the country? Or the world?
+8. Is there a way to possibly predict the future course of the pandemic (e.g. future case numbers, future deaths) based on modeling the cases and deaths we have seen so far?
+9. What models could be used to perform such inferences?
+10. By analyzing the data, can we predict the trend in Texas? Is that going to increase or decrease in the future?
+11. The pandemic in the US appears to occur most aggressively in “waves” of variants (Alpha, Delta, Omicron, etc.). Judging from hospitalization and death rates compared to total case numbers, has the virus appeared to grow more or less lethal over time? 
+12. Does Texas ever appear to be spawning its own variant? That is, does the virus seem more lethal here than elsewhere in the US or even the world? 
+13. If yes or no, does one separate that possibility from the increased or decreased lethality being caused by pre-existing health conditions instead?
+What should people do to prevent a global crisis like COVID from happening again by analyzing the data?
