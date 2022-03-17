@@ -17,7 +17,7 @@ vax_tx <- vax %>%
 ggplot(data = vax_tx, mapping = aes(x = Date, y = Doses_millions)) + 
   geom_line() +
   ylab("Total Doses Administered (in millions)") + 
-  ggtitle("Total Vaccine Doses Administered to Date in Texas") + 
+  ggtitle("Total Vaccine Doses Administered to Date in Texas") +
   scale_x_date(breaks = "2 months") # scale x-axis by 2 months
 
 cases <- read.csv("time_series_covid19_confirmed_US.csv") # load cases data
@@ -51,11 +51,9 @@ ggplot(data = total) +
 
 ggplot(data = sums, mapping = aes(x = Date, y = Cases)) + 
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") + 
+  ggtitle("Cumulative Cases by Date in Texas")
 
-
-
-   
 
 # 12. Does Texas ever appear to be spawning its own variant? That is, does 
 # the virus seem more lethal here than elsewhere in the US or even the world? 
