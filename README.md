@@ -1,7 +1,9 @@
 # Associations between COVID-19 Mortality and Public Health Factors in Texas
 
 ## Description
-Collaborative data analysis of the COVID-19 dataset provided and maintained by the [COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University](https://github.com/CSSEGISandData/COVID-19), implemented in R and submitted as a group project for STAT 3355: Data Analysis for Statisticians and Actuaries at UT Dallas.
+This is a collaborative data analysis project investigating the COVID-19 dataset provided and maintained by the [COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University](https://github.com/CSSEGISandData/COVID-19), implemented in R and submitted as a group project for STAT 3355: Data Analysis for Statisticians and Actuaries at UT Dallas. 
+
+Our focus will be on the state of Texas. Our primary dataset is the CSSE dataset, which provides data on cases. Sources of public health data (e.g. vaccines) are listed below.
 
 ## Primary Dataset
 * [JHU CSSE COVID-19 Data Repository](https://github.com/CSSEGISandData/COVID-19)
