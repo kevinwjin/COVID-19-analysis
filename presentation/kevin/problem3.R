@@ -2,7 +2,7 @@
 # What about vaccine uptake? (Kevin)
 
 # Set working directory
-setwd("~/Documents/Programming/Repositories/covid-19-associations/presentation/question_3_kevin")
+setwd("~/Documents/Programming/Repositories/covid-19-associations/presentation/kevin")
 
 # Load libraries
 library(ggplot2)
