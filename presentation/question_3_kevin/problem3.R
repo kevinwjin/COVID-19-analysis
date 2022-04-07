@@ -1,6 +1,9 @@
 # Problem 3: Will COVID-19 cases continue to rise in the future or go down? 
 # What about vaccine uptake? (Kevin)
 
+# Set working directory
+setwd("~/Documents/Programming/Repositories/covid-19-associations/presentation/question_3_kevin")
+
 # Load libraries
 library(ggplot2)
 library(dplyr)
@@ -52,7 +55,7 @@ vax_tx <- vax %>%
            Vaccine_Type == "All") %>% 
   select(Date, Doses_admin) %>% # extract Date and Doses Administered variables
   mutate(Doses_millions = Doses_admin/1000000) %>% # display doses by millions
-  mutate(Doses_admin_daily = diff(c(0, vax_tx$Doses_admin)))
+  mutate(Doses_admin_daily = diff(c(0, Doses_admin)))
 
 ggplot(data = vax_tx, mapping = aes(x = Date, y = Doses_admin_daily)) + 
   geom_point() + 
