@@ -32,16 +32,21 @@ cases$date <- dates
 # Draw plots
 ggplot(data = cases, mapping = aes(x = dates, y = daily)) + 
   geom_point() + 
-  geom_smooth(method = "loess") + 
+  geom_smooth(method = "lm", aes(color = "red")) + 
+  geom_smooth(method = "loess", aes(color = "blue")) + 
   labs(x = "Date", y = "Cases", 
-       title = "Time Series Trend of Daily Cases in Texas")
+       title = "Time Series Trend of Daily Cases in Texas") + 
+  scale_color_manual(name = "Regression", values = c("blue", "red"),
+                     labels = c("Local", "Linear"))
 ggsave("daily_cases.png")
 
 ggplot(data = cases, mapping = aes(x = dates, y = total)) + 
   geom_point() + 
-  geom_smooth(method = "lm") + 
+  geom_smooth(method = "lm", aes(color = "red")) + 
   labs(x = "Date", y = "Cases", 
-       title = "Time Series Trend of Total Cases in Texas")
+       title = "Time Series Trend of Total Cases in Texas") + 
+  scale_color_manual(name = "Regression", values = c("red"),
+                     labels = c("Linear"))
 ggsave("total_cases.png")
 
 # Load Texas vaccine data
@@ -59,14 +64,19 @@ vax_tx <- vax %>%
 
 ggplot(data = vax_tx, mapping = aes(x = Date, y = Doses_admin_daily)) + 
   geom_point() + 
-  geom_smooth(method = "loess") + 
+  geom_smooth(method = "lm", aes(color = "red")) + 
+  geom_smooth(method = "loess", aes(color = "blue")) + 
   labs(x = "Date", y = "Doses Administered", 
-       title = "Time Series Trend of Daily Vaccines Administered in Texas")
+       title = "Time Series Trend of Daily Vaccines Administered in Texas") +
+  scale_color_manual(name = "Regression", values = c("blue", "red"),
+                     labels = c("Local", "Linear"))
 ggsave("daily_vax.png")
 
 ggplot(data = vax_tx, mapping = aes(x = Date, y = Doses_millions)) + 
   geom_point() + 
-  geom_smooth(method = "lm") + 
+  geom_smooth(method = "lm", aes(color = "red")) + 
   labs(x = "Date", y = "Doses Administered (in millions)", 
-       title = "Time Series Trend of Total Vaccines Administered in Texas")
+       title = "Time Series Trend of Total Vaccines Administered in Texas") +
+  scale_color_manual(name = "Regression", values = c("red"),
+                     labels = c("Linear"))
 ggsave("total_vax.png")
