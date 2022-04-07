@@ -10,12 +10,19 @@ Our focus will be on the state of Texas. Our primary dataset is the CSSE dataset
 
 ## Secondary Datasets
 * [JHU CCI CRC COVID-19 Data](https://github.com/govex/COVID-19)
+* [Texas DHHS COVID-19 Case Fatality and Demographics](https://dshs.texas.gov/coronavirus/AdditionalData.aspx)
+* [CDC Research Study (“Underlying Medical Conditions and Severe Illness Among 540,667 Adults Hospitalized With COVID-19, March 2020–March 2021”)](https://www.cdc.gov/pcd/issues/2021/21_0123.htm)
 
 ## Dependencies
 * `ggplot2` - better graphs
-* `dplyr` - data cleaning
 * `lubridate` - date handling
-* `stringr` - column name handling
+* `dplyr` - data cleaning
+* `plyr`
+* `gridExtra`
+* `cowplot`
+* `grid`
+* `gapminder`
+* `readxl`
 
 ## Collaborators
 Michael Tsang, Kevin Jin, & Mingyu Sun
