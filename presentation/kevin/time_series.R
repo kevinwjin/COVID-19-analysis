@@ -51,22 +51,20 @@ cuts <- data.frame(Ref = c("Mask mandate\ndeclared \n(2020-07-02)",
 cd <- ggplot(data = cases, mapping = aes(x = dates, y = daily_thousands)) + 
       geom_line() +
       labs(x = "Date", y = "Cases (in thousands)", 
-           title = "Daily Cases in Texas (Dickey-Fuller = -2.65, p = 0.3)") + 
+           title = "Daily Cases in Texas (Dickey-Fuller = -2.71, p = 0.27)") + 
       scale_y_continuous(breaks = seq(0, 100, by = 25)) + 
       scale_x_date(date_breaks = "2 months") +
       theme(axis.text.x = element_text(angle = 45, hjust = 1),
-            axis.title.x = element_blank()) +
+            axis.title.x = element_blank(),
+            legend.title = element_blank()) +
       geom_vline(data = cuts,
                 mapping = aes(xintercept = vals,
                               color = Ref),
                 linetype = 4, 
                 size = 0.8,
-                show.legend = FALSE) +
-      geom_text(data = cuts,
-                mapping = aes(x = vals,
-                              y = 80,
-                              label = Ref,
-                              hjust = 1.1))
+                show.legend = TRUE) +
+      guides(color = guide_legend(reverse = TRUE)) +
+      labs(color = "Events")
 ct <- ggplot(data = cases, mapping = aes(x = dates, y = total_millions)) + 
       geom_line() + 
       labs(x = "Date", y = "Cases (in millions)", 
@@ -82,12 +80,12 @@ ct <- ggplot(data = cases, mapping = aes(x = dates, y = total_millions)) +
                                color = Ref),
                  linetype = 4, 
                  size = 0.8,
-                 show.legend = FALSE) + # Abbott orders mask mandate 
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
-            #legend.position = c(0.90, 0.30),
-            #legend.title = element_blank()) +
-      #scale_color_discrete("Events", label = c("Mask Mandate"))
-ggarrange(cd, ct, nrow = 2)
+                 show.legend = TRUE) + # Abbott orders mask mandate 
+      theme(axis.text.x = element_text(angle = 45, hjust = 1),
+            legend.title = element_blank()) +
+      guides(color = guide_legend(reverse = TRUE)) +
+      labs(color = "Events")
+ggarrange(cd, ct, nrow = 2, common.legend = TRUE, legend = "bottom")
 ggsave("cases.png")
 
 # Load Texas vaccine data
@@ -113,47 +111,51 @@ adf.test(vax_tx$Doses_admin_daily)
 eua <- data.frame(Ref = c("Pfizer EUA\nissued\n(2020-12-11)",
                            "Moderna EUA\nissued\n(2020-12-18)",
                            "J&J EUA\nissued\n(2021-02-27)",
+                           "All adults\n16+\n(2021-03-29)",
                            "Boosters\nauthorized\n(2021-09-22)"),
                    vals = c(as.Date("2020-12-11"), 
                             as.Date("2020-12-18"), 
                             as.Date("2021-02-27"),
+                            as.Date("2021-03-29"),
                             as.Date("2021-09-22")),
                    stringsAsFactors = FALSE)
-
 vd <- ggplot(data = vax_tx, mapping = aes(x = Date, 
                                           y = Doses_admin_daily_thousands)) + 
       geom_line() +
       labs(x = "Date", 
            y = "Doses (in thousands)", 
-           title = "Daily Vaccine Doses Administered in Texas (Dickey-Fuller = -2.65, p = 0.3)") +
+           title = "Daily Vaccine Doses Administered in Texas (Dickey-Fuller = -2.93, p = 0.18)") +
       scale_x_date(date_breaks = "2 months") +
       theme(axis.text.x = element_text(angle = 45, hjust = 1),
-            axis.title.x = element_blank()) +
+            axis.title.x = element_blank(),
+            legend.title = element_blank()) +
       geom_vline(data = eua,
                  mapping = aes(xintercept = vals,
                                color = Ref),
                  linetype = 4, 
                  size = 0.8,
                  show.legend = TRUE) +
-  guides(color = guide_legend(reverse = TRUE))
-      # geom_text(data = eua,
-      #           mapping = aes(x = vals,
-      #                         y = 600,
-      #                         label = Ref,
-      #                         hjust = 0.5))
+      guides(color = guide_legend(reverse = TRUE))
 vt <- ggplot(data = vax_tx, mapping = aes(x = Date, y = Doses_millions)) + 
       geom_line() + 
       labs(x = "Date", y = "Doses (in millions)", 
-           title = "Total Vaccine Doses Administered in Texas by Date") +
+           title = "Total Vaccine Doses Administered in Texas by Date (Local Regression)") +
       scale_y_continuous(breaks = seq(0, 50, by = 10)) + 
       scale_x_date(date_breaks = "2 months") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1),
+            legend.title = element_blank()) +
+      stat_smooth(geom = "line",
+                  method = "loess",
+                  alpha = 0.5,
+                  linetype = 1,
+                  color = "blue") +
       geom_vline(data = eua,
                  mapping = aes(xintercept = vals,
                                color = Ref),
                  linetype = 4, 
                  size = 0.8,
                  show.legend = TRUE) +
-  guides(color = guide_legend(reverse = TRUE))
+      guides(color = guide_legend(reverse = TRUE)) +
+      labs(color = "Events")
 ggarrange(vd, vt, nrow = 2, common.legend = TRUE, legend = "bottom")
 ggsave("vaccines.png")
