@@ -18,7 +18,7 @@ library(gapminder)
 # Case and Fatality Demographics Data -> Case and Fatality Demographics Data - Counts
 
 # Create New Data Frame and replace the file location with your own
-Coviddemo <- read_excel("/Users/tsang/OneDrive/Desktop/Data/COVIDdemo.xlsx")
+Coviddemo <- read_excel("COVIDdemo.xlsx")
 
 
 #Data Cleaning
@@ -52,7 +52,7 @@ barplot(as.matrix(Coviddemo),
 # Table 1
 
 # Create New Data Frame and replace the file location with your own
-CovidCDC <- read_excel("/Users/tsang/OneDrive/Desktop/Data/CDCcovid.xlsx")
+CovidCDC <- read_excel("CDCcovid.xlsx")
 
 # Data Cleaning
 Preexisting <- data.frame(CovidCDC[4:11,])
@@ -124,7 +124,7 @@ barplot(as.matrix(Preexisting1), cex.names = 0.8,
 
 
 # Create New Data Frame and replace the file location with your own
-Underlying <- read_excel("/Users/tsang/OneDrive/Desktop/Data/CDCunderlying.xlsx")
+Underlying <- read_excel("CDCunderlying.xlsx")
 
 
 # Data cleaning
