@@ -1,9 +1,6 @@
 # Problem 3: Will COVID-19 cases continue to rise in the future or go down? 
 # What about vaccine uptake? (Kevin)
 
-# Set working directory
-setwd("~/Documents/Programming/Repositories/covid-19-associations/presentation/kevin")
-
 # Load libraries
 library(ggplot2)
 library(dplyr)
@@ -49,42 +46,42 @@ cuts <- data.frame(Ref = c("Mask mandate\ndeclared \n(2020-07-02)",
                             as.Date("2021-11-26")),
                    stringsAsFactors = FALSE)
 cd <- ggplot(data = cases, mapping = aes(x = dates, y = daily_thousands)) + 
-      geom_line() +
-      labs(x = "Date", y = "Cases (in thousands)", 
-           title = "Daily Cases in Texas (Dickey-Fuller = -2.71, p = 0.27)") + 
-      scale_y_continuous(breaks = seq(0, 100, by = 25)) + 
-      scale_x_date(date_breaks = "2 months") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1),
-            axis.title.x = element_blank(),
-            legend.title = element_blank()) +
-      geom_vline(data = cuts,
-                mapping = aes(xintercept = vals,
-                              color = Ref),
-                linetype = 4, 
-                size = 0.8,
-                show.legend = TRUE) +
-      guides(color = guide_legend(reverse = TRUE)) +
-      labs(color = "Events")
+  geom_line() +
+  labs(x = "Date", y = "Cases (in thousands)", 
+       title = "Daily Cases in Texas (Dickey-Fuller = -2.71, p = 0.27)") + 
+  scale_y_continuous(breaks = seq(0, 100, by = 25)) + 
+  scale_x_date(date_breaks = "2 months") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(),
+        legend.title = element_blank()) +
+  geom_vline(data = cuts,
+             mapping = aes(xintercept = vals,
+                           color = Ref),
+             linetype = 4, 
+             size = 0.8,
+             show.legend = TRUE) +
+  guides(color = guide_legend(reverse = TRUE)) +
+  labs(color = "Events")
 ct <- ggplot(data = cases, mapping = aes(x = dates, y = total_millions)) + 
-      geom_line() + 
-      labs(x = "Date", y = "Cases (in millions)", 
-                 title = "Total Cases in Texas (Local Regression)") + 
-      scale_x_date(date_breaks = "2 months") +
-      stat_smooth(geom = "line",
-                  method = "loess",
-                  alpha = 0.5,
-                  linetype = 1,
-                  color = "blue") +
-      geom_vline(data = cuts,
-                 mapping = aes(xintercept = vals,
-                               color = Ref),
-                 linetype = 4, 
-                 size = 0.8,
-                 show.legend = TRUE) + # Abbott orders mask mandate 
-      theme(axis.text.x = element_text(angle = 45, hjust = 1),
-            legend.title = element_blank()) +
-      guides(color = guide_legend(reverse = TRUE)) +
-      labs(color = "Events")
+  geom_line() + 
+  labs(x = "Date", y = "Cases (in millions)", 
+       title = "Total Cases in Texas (Local Regression)") + 
+  scale_x_date(date_breaks = "2 months") +
+  stat_smooth(geom = "line",
+              method = "loess",
+              alpha = 0.5,
+              linetype = 1,
+              color = "blue") +
+  geom_vline(data = cuts,
+             mapping = aes(xintercept = vals,
+                           color = Ref),
+             linetype = 4, 
+             size = 0.8,
+             show.legend = TRUE) + # Abbott orders mask mandate 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title = element_blank()) +
+  guides(color = guide_legend(reverse = TRUE)) +
+  labs(color = "Events")
 ggarrange(cd, ct, nrow = 2, common.legend = TRUE, legend = "bottom")
 ggsave("cases.png")
 
@@ -94,13 +91,17 @@ vax <- read.csv("vaccine_data_us_timeline.csv")
 # Extract daily vaccine administrations from cumulative sum
 vax$Date <- ymd(vax$Date) # convert Date column to Date format
 vax_tx <- vax %>%
-  filter(Province_State == "Texas" & # extract Texas and All vaccine type rows
+  filter(Province_State == 
+           "Texas" & # extract Texas and All vaccine type rows
            Vaccine_Type == "All") %>% 
   select(Date, Doses_admin) %>% # extract Date and Doses Administered variables
-  mutate(Doses_millions = Doses_admin/1000000) %>% # display total doses by millions
-  mutate(Doses_admin_daily = diff(c(0, Doses_admin))) %>% # extract daily cases
+  mutate(Doses_millions = 
+           Doses_admin/1000000) %>% # display total doses by millions
+  mutate(Doses_admin_daily = 
+           diff(c(0, Doses_admin))) %>% # extract daily cases
   filter(Doses_admin_daily >= 0) %>% # remove rows with negative doses
-  mutate(Doses_admin_daily_thousands = Doses_admin_daily/1000) # display in thousands
+  mutate(Doses_admin_daily_thousands =
+           Doses_admin_daily/1000) # display in thousands
 
 # Augmented Dickey-Fuller test shows non-stationary behavior
 # p-value > 0.05; we reject the null hypothesis that the data is stationary
@@ -109,53 +110,55 @@ adf.test(vax_tx$Doses_admin_daily)
 
 # Draw vaccine time series plots
 eua <- data.frame(Ref = c("Pfizer EUA\nissued\n(2020-12-11)",
-                           "Moderna EUA\nissued\n(2020-12-18)",
-                           "J&J EUA\nissued\n(2021-02-27)",
-                           "All adults\n16+\n(2021-03-29)",
-                           "Boosters\nauthorized\n(2021-09-22)"),
-                   vals = c(as.Date("2020-12-11"), 
-                            as.Date("2020-12-18"), 
-                            as.Date("2021-02-27"),
-                            as.Date("2021-03-29"),
-                            as.Date("2021-09-22")),
-                   stringsAsFactors = FALSE)
+                          "Moderna EUA\nissued\n(2020-12-18)",
+                          "J&J EUA\nissued\n(2021-02-27)",
+                          "All adults\n16+\n(2021-03-29)",
+                          "Boosters\nauthorized\n(2021-09-22)"),
+                  vals = c(as.Date("2020-12-11"), 
+                           as.Date("2020-12-18"), 
+                           as.Date("2021-02-27"),
+                           as.Date("2021-03-29"),
+                           as.Date("2021-09-22")),
+                  stringsAsFactors = FALSE)
 vd <- ggplot(data = vax_tx, mapping = aes(x = Date, 
                                           y = Doses_admin_daily_thousands)) + 
-      geom_line() +
-      labs(x = "Date", 
-           y = "Doses (in thousands)", 
-           title = "Daily Vaccine Doses Administered in Texas (Dickey-Fuller = -2.93, p = 0.18)") +
-      scale_x_date(date_breaks = "2 months") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1),
-            axis.title.x = element_blank(),
-            legend.title = element_blank()) +
-      geom_vline(data = eua,
-                 mapping = aes(xintercept = vals,
-                               color = Ref),
-                 linetype = 4, 
-                 size = 0.8,
-                 show.legend = TRUE) +
-      guides(color = guide_legend(reverse = TRUE))
+  geom_line() +
+  labs(x = "Date", 
+       y = "Doses (in thousands)", 
+       title = "Daily Vaccine Doses Administered in Texas \\
+           (Dickey-Fuller = -2.93, p = 0.18)") +
+  scale_x_date(date_breaks = "2 months") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank(),
+        legend.title = element_blank()) +
+  geom_vline(data = eua,
+             mapping = aes(xintercept = vals,
+                           color = Ref),
+             linetype = 4, 
+             size = 0.8,
+             show.legend = TRUE) +
+  guides(color = guide_legend(reverse = TRUE))
 vt <- ggplot(data = vax_tx, mapping = aes(x = Date, y = Doses_millions)) + 
-      geom_line() + 
-      labs(x = "Date", y = "Doses (in millions)", 
-           title = "Total Vaccine Doses Administered in Texas by Date (Local Regression)") +
-      scale_y_continuous(breaks = seq(0, 50, by = 10)) + 
-      scale_x_date(date_breaks = "2 months") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1),
-            legend.title = element_blank()) +
-      stat_smooth(geom = "line",
-                  method = "loess",
-                  alpha = 0.5,
-                  linetype = 1,
-                  color = "blue") +
-      geom_vline(data = eua,
-                 mapping = aes(xintercept = vals,
-                               color = Ref),
-                 linetype = 4, 
-                 size = 0.8,
-                 show.legend = TRUE) +
-      guides(color = guide_legend(reverse = TRUE)) +
-      labs(color = "Events")
+  geom_line() + 
+  labs(x = "Date", y = "Doses (in millions)", 
+       title = "Total Vaccine Doses Administered in Texas by Date \\
+           (Local Regression)") +
+  scale_y_continuous(breaks = seq(0, 50, by = 10)) + 
+  scale_x_date(date_breaks = "2 months") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title = element_blank()) +
+  stat_smooth(geom = "line",
+              method = "loess",
+              alpha = 0.5,
+              linetype = 1,
+              color = "blue") +
+  geom_vline(data = eua,
+             mapping = aes(xintercept = vals,
+                           color = Ref),
+             linetype = 4, 
+             size = 0.8,
+             show.legend = TRUE) +
+  guides(color = guide_legend(reverse = TRUE)) +
+  labs(color = "Events")
 ggarrange(vd, vt, nrow = 2, common.legend = TRUE, legend = "bottom")
 ggsave("vaccines.png")

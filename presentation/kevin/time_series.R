@@ -1,9 +1,6 @@
 # Problem 3: Will COVID-19 cases continue to rise in the future or go down? 
 # What about vaccine uptake? (Kevin)
 
-# Set working directory
-setwd("~/Documents/Programming/Repositories/covid-19-associations/presentation/kevin")
-
 # Load libraries
 library(ggplot2)
 library(dplyr)
@@ -94,13 +91,17 @@ vax <- read.csv("vaccine_data_us_timeline.csv")
 # Extract daily vaccine administrations from cumulative sum
 vax$Date <- ymd(vax$Date) # convert Date column to Date format
 vax_tx <- vax %>%
-  filter(Province_State == "Texas" & # extract Texas and All vaccine type rows
+  filter(Province_State == 
+           "Texas" & # extract Texas and All vaccine type rows
            Vaccine_Type == "All") %>% 
   select(Date, Doses_admin) %>% # extract Date and Doses Administered variables
-  mutate(Doses_millions = Doses_admin/1000000) %>% # display total doses by millions
-  mutate(Doses_admin_daily = diff(c(0, Doses_admin))) %>% # extract daily cases
+  mutate(Doses_millions = 
+           Doses_admin/1000000) %>% # display total doses by millions
+  mutate(Doses_admin_daily = 
+           diff(c(0, Doses_admin))) %>% # extract daily cases
   filter(Doses_admin_daily >= 0) %>% # remove rows with negative doses
-  mutate(Doses_admin_daily_thousands = Doses_admin_daily/1000) # display in thousands
+  mutate(Doses_admin_daily_thousands =
+           Doses_admin_daily/1000) # display in thousands
 
 # Augmented Dickey-Fuller test shows non-stationary behavior
 # p-value > 0.05; we reject the null hypothesis that the data is stationary
@@ -124,7 +125,8 @@ vd <- ggplot(data = vax_tx, mapping = aes(x = Date,
       geom_line() +
       labs(x = "Date", 
            y = "Doses (in thousands)", 
-           title = "Daily Vaccine Doses Administered in Texas (Dickey-Fuller = -2.93, p = 0.18)") +
+           title = "Daily Vaccine Doses Administered in Texas \\
+           (Dickey-Fuller = -2.93, p = 0.18)") +
       scale_x_date(date_breaks = "2 months") +
       theme(axis.text.x = element_text(angle = 45, hjust = 1),
             axis.title.x = element_blank(),
@@ -139,7 +141,8 @@ vd <- ggplot(data = vax_tx, mapping = aes(x = Date,
 vt <- ggplot(data = vax_tx, mapping = aes(x = Date, y = Doses_millions)) + 
       geom_line() + 
       labs(x = "Date", y = "Doses (in millions)", 
-           title = "Total Vaccine Doses Administered in Texas by Date (Local Regression)") +
+           title = "Total Vaccine Doses Administered in Texas by Date \\
+           (Local Regression)") +
       scale_y_continuous(breaks = seq(0, 50, by = 10)) + 
       scale_x_date(date_breaks = "2 months") +
       theme(axis.text.x = element_text(angle = 45, hjust = 1),
