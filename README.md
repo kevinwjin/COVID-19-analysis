@@ -7,6 +7,12 @@ Our driving questions focus on identifying public health and socioeconomic facto
 
 Our primary dataset is the CSSE dataset, which provides data on cases. Secondary sources of public health data (e.g. vaccines, pre-existing conditions, socioeconomic status, population density) are listed below.
 
+## Contents
+* `exploratory/`  - Data exploration and pattern discovery code
+* `presentation/` - Presentation code and slides as delivered in class
+* `proposal/` - Initial proposal containing project ambitions as submitted
+* `report/` - Final report and code as submitted
+
 ## Primary Dataset
 * [JHU CSSE COVID-19 Data Repository](https://github.com/CSSEGISandData/COVID-19)
 
